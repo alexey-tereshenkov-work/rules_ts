@@ -31,12 +31,29 @@ ts_project(
 )
 
 ts_project(
+    name = "lib.ts6",
+    srcs = ["lib.ts"],
+    composite = True,
+    out_dir = "ts6_out",
+    tsc = "@npm_typescript-6//:tsc",
+)
+
+ts_project(
     name = "lib.ts7rc",
     srcs = ["lib.ts"],
     composite = True,
     out_dir = "ts7rc_out",
     tsc = "@npm_typescript-7rc//:tsc",
     validator = "@npm_typescript-7rc//:validator",
+)
+
+ts_project(
+    name = "lib.ts7",
+    srcs = ["lib.ts"],
+    composite = True,
+    out_dir = "ts7_out",
+    tsc = "@npm_typescript-7//:tsc",
+    validator = "@npm_typescript-7//:validator",
 )
 
 # Validation must accept an option implied as a computed default of another
@@ -109,4 +126,30 @@ build_test(
         "@sub_external//subdir:lib-with-asset",
         "@sub_external//subdir:tsconfig-dict",
     ],
+)
+
+ts_project(
+    name = "typecheck_only6",
+    srcs = [
+        "lib.ts",
+    ],
+    tsconfig = {
+        "compilerOptions": {
+            "noEmit": True,
+        },
+    },
+    tsc = "@npm_typescript-6//:tsc",
+)
+
+ts_project(
+    name = "typecheck_only7",
+    srcs = [
+        "lib.ts",
+    ],
+    tsconfig = {
+        "compilerOptions": {
+            "noEmit": True,
+        },
+    },
+    tsc = "@npm_typescript-7//:tsc",
 )
