@@ -127,3 +127,29 @@ build_test(
         "@sub_external//subdir:tsconfig-dict",
     ],
 )
+
+ts_project(
+    name = "typecheck_only6",
+    srcs = [
+        "lib.ts",
+    ],
+    tsconfig = {
+        "compilerOptions": {
+            "noEmit": True,
+        },
+    },
+    tsc = "@npm_typescript-6//:tsc",
+)
+
+ts_project(
+    name = "typecheck_only7",
+    srcs = [
+        "lib.ts",
+    ],
+    tsconfig = {
+        "compilerOptions": {
+            "noEmit": True,
+        },
+    },
+    tsc = "@npm_typescript-7//:tsc",
+)
