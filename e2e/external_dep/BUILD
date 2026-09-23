@@ -3,6 +3,9 @@
 load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
 
+load("@npm//:defs.bzl", "npm_link_all_packages")
+npm_link_all_packages(name = "node_modules")
+
 ts_project(
     name = "lib",
     srcs = ["lib.ts"],
@@ -54,6 +57,46 @@ ts_project(
     out_dir = "ts7_out",
     tsc = "@npm_typescript-7//:tsc",
     validator = "@npm_typescript-7//:validator",
+)
+
+ts_project(
+    name = "app.ts6",
+    srcs = ["app.ts"],
+    composite = True,
+    out_dir = "ts6_out",
+    tsc = "@npm_typescript-6//:tsc",
+    tsconfig = {
+        "compilerOptions": {
+            "composite": True,
+            "declaration": True,
+            "types": ["node"],
+        },
+    },
+    validator = "@npm_typescript-6//:validator",
+    deps = [
+        ":node_modules/@types/node",
+        ":node_modules/chalk",
+    ]
+)
+
+ts_project(
+    name = "app.ts7",
+    srcs = ["app.ts"],
+    composite = True,
+    out_dir = "ts7_out",
+    tsc = "@npm_typescript-7//:tsc",
+    tsconfig = {
+        "compilerOptions": {
+            "composite": True,
+            "declaration": True,
+            "types": ["node"],
+        },
+    },
+    validator = "@npm_typescript-7//:validator",
+    deps = [
+        ":node_modules/@types/node",
+        ":node_modules/chalk",
+    ]
 )
 
 # Validation must accept an option implied as a computed default of another

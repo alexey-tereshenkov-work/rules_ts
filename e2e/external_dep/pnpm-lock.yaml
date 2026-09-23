@@ -7,18 +7,43 @@ settings:
 importers:
 
   .:
+    dependencies:
+      chalk:
+        specifier: 5.0.1
+        version: 5.0.1
     devDependencies:
+      '@types/node':
+        specifier: 26.6.2
+        version: 26.6.2
       typescript:
         specifier: 5.6.2
         version: 5.6.2
 
 packages:
 
+  '@types/node@26.6.2':
+    resolution: {integrity: sha512-X1P21scMv4zGKLYqjdGjaKa7COa0RKVYYZZN/NfvLQ1JegxFhdhpZG/Lyn8AXx6CDUavKAd11v6BvfpkDByK8g==}
+
+  chalk@5.0.1:
+    resolution: {integrity: sha512-Fo07WOYGqMfCWHOzSXOt2CxDbC6skS/jO9ynEcmpANMoPrD+W1r1K6Vx7iNm+AQmETU1Xr2t+n8nzkV9t6xh3w==}
+    engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
+
   typescript@5.6.2:
     resolution: {integrity: sha512-NW8ByodCSNCwZeghjN3o+JX5OFH0Ojg6sadjEKY4huZ52TqbJTJnDo5+Tw98lSy63NZvi4n+ez5m2u5d4PkZyw==}
     engines: {node: '>=14.17'}
     hasBin: true
 
+  undici-types@8.9.0:
+    resolution: {integrity: sha512-KTDyRTYX8sWmKXAikPHHSyc63CRPETMctyjKFupcC6OBLXT3xsN0e9aF7m+mIXutFWpUXuedtowG7iLOzp0kQg==}
+
 snapshots:
 
+  '@types/node@26.6.2':
+    dependencies:
+      undici-types: 8.9.0
+
+  chalk@5.0.1: {}
+
   typescript@5.6.2: {}
+
+  undici-types@8.9.0: {}

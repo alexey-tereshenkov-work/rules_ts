@@ -3,6 +3,8 @@ module(
 )
 
 bazel_dep(name = "aspect_rules_ts", version = "0.0.0")
+bazel_dep(name = "aspect_rules_js", version = "3.4.0")
+
 local_path_override(
     module_name = "aspect_rules_ts",
     path = "../..",
@@ -54,3 +56,14 @@ local_path_override(
     module_name = "sub_external",
     path = "./sub_external",
 )
+
+npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm")
+npm.npm_translate_lock(
+    name = "npm",
+    npmrc = "//:.npmrc",
+    pnpm_lock = "//:pnpm-lock.yaml",
+)
+use_repo(npm, "npm")
+
+pnpm = use_extension("@aspect_rules_js//npm:extensions.bzl", "pnpm")
+use_repo(pnpm, "pnpm")
