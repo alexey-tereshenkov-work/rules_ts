@@ -3,6 +3,8 @@ module(
 )
 
 bazel_dep(name = "aspect_rules_ts", version = "0.0.0")
+bazel_dep(name = "aspect_rules_js", version = "3.4.0")
+
 local_path_override(
     module_name = "aspect_rules_ts",
     path = "../..",
@@ -19,6 +21,11 @@ typescript.toolchain(
     version = "5.0.4",
 )
 
+typescript.toolchain(
+    name = "npm_typescript-6",
+    version = "6.0.3",
+)
+
 # Example of an rc version
 typescript.toolchain(
     name = "npm_typescript-56rc",
@@ -32,15 +39,31 @@ typescript.toolchain(
     version = "7.0.1-rc",
 )
 
+typescript.toolchain(
+    name = "npm_typescript-7",
+    version = "7.0.2",
+)
+
 # TypeScript 5.9, where `module: nodenext` implies resolveJsonModule
 typescript.toolchain(
     name = "npm_typescript-59",
     version = "5.9.2",
 )
-use_repo(typescript, "npm_typescript", "npm_typescript-56rc", "npm_typescript-59", "npm_typescript-7rc", "npm_typescript5")
+use_repo(typescript, "npm_typescript", "npm_typescript-56rc", "npm_typescript-59", "npm_typescript-6", "npm_typescript-7rc", "npm_typescript-7", "npm_typescript5")
 
 bazel_dep(name = "sub_external", version = "0.0.0", dev_dependency = True)
 local_path_override(
     module_name = "sub_external",
     path = "./sub_external",
 )
+
+npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm")
+npm.npm_translate_lock(
+    name = "npm",
+    npmrc = "//:.npmrc",
+    pnpm_lock = "//:pnpm-lock.yaml",
+)
+use_repo(npm, "npm")
+
+pnpm = use_extension("@aspect_rules_js//npm:extensions.bzl", "pnpm")
+use_repo(pnpm, "pnpm")
